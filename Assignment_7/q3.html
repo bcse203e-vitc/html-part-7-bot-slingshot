@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+<h1>Simple Calculator</h1>
+
+<form id="calculatorForm">
+    <label for="num1">Number 1:</label>
+    <input type="number" id="num1" required><br><br>
+
+    <label for="num2">Number 2:</label>
+    <input type="number" id="num2" required><br><br>
+
+    <label for="operation">Select Operation:</label>
+    <select id="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Subtraction (-)</option>
+        <option value="multiply">Multiplication (×)</option>
+        <option value="divide">Division (÷)</option>
+        <option value="modulus">Modulus (%)</option>
+        <option value="exponentiation">Exponentiation (**)</option>
+    </select><br><br>
+
+    <button type="button" onclick="calculate()">Calculate</button>
+</form>
+
+<h2>Result: <span id="result"></span></h2>
+
+<script>
+
+function calculate() {
+    const num1 = parseFloat(document.getElementById("num1").value);
+    const num2 = parseFloat(document.getElementById("num2").value);
+    const operation = document.getElementById("operation").value;
+    let result;
+
+    switch (operation) {
+        case "add":
+            result = num1 + num2;
+            break;
+        case "subtract":
+            result = num1 - num2;
+            break;
+        case "multiply":
+            result = num1 * num2;
+            break;
+        case "divide":
+            if (num2 === 0) {
+                result = "Error: Division by zero!";
+            } else {
+                result = num1 / num2;
+            }
+            break;
+        case "modulus":
+            result = num1 % num2;
+            break;
+        case "exponentiation":
+            result = Math.pow(num1, num2);
+            break;
+        default:
+            result = "Invalid operation!";
+            break;
+    }
+    document.getElementById("result").textContent = result;
+}
+</script>
+
+</body>
+</html>
