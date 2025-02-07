@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+</head>
+<body>
+<h1>Guess the Number Game</h1>
+<p>Guess a number between 1 and 100:</p>
+<input type="number" id="userGuess" min="1" max="100" placeholder="Enter a number">
+<button onclick="checkGuess()">Guess</button>
 
+<div class="result" id="result"></div>
+
+<script>
+
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attemptsLeft = 5;
+
+    function checkGuess() {
+        let userGuess = document.getElementById("userGuess").value;
+        let result = document.getElementById("result");
+
+        if (userGuess < 1 || userGuess > 100 || isNaN(userGuess)) {
+            result.innerHTML = "Please enter a valid number between 1 and 100.";
+            return;
+        }
+
+       
+        if (userGuess == randomNumber) {
+            result.innerHTML = `Congratulations! You guessed the number ${randomNumber} correctly!`;
+            result.style.color = "green";
+        } else {
+            attemptsLeft--;
+
+            if (attemptsLeft > 0) {
+                if (userGuess < randomNumber) {
+                    result.innerHTML = `Too low! You have ${attemptsLeft} attempts left.`;
+                } else {
+                    result.innerHTML = `Too high! You have ${attemptsLeft} attempts left.`;
+                }
+            } else {
+                result.innerHTML = `Sorry, you're out of attempts! The correct number was ${randomNumber}.`;
+                result.style.color = "red";
+            }
+        }
+
+        if (attemptsLeft === 0 || userGuess == randomNumber) {
+            document.getElementById("userGuess").disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>
