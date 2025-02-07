@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Array Without Sort Method</title>
+</head>
+<body>
+    <h1>Sort an Array of Numbers</h1>
+    <input type="text" id="numberInput" placeholder="Enter numbers separated by commas">
+    <button onclick="sortArray('asc')">Sort Ascending</button>
+    <button onclick="sortArray('desc')">Sort Descending</button>
+    <p id="result"></p>
+    
+    <script>
+        function sortArray(order) {
+            let input = document.getElementById('numberInput').value;
+            let numbers = input.split(',').map(num => parseFloat(num.trim()));
+            let sorted = [];
+            for (let i = 0; i < numbers.length; i++) {
+                let inserted = false;
+                for (let j = 0; j < sorted.length; j++) {
+                    if ((order === 'asc' && numbers[i] < sorted[j]) || (order === 'desc' && numbers[i] > sorted[j])){
+                        sorted.splice(j, 0, numbers[i]);
+                        inserted = true;
+                        break;
+                    }
+                }
+                if (!inserted) {
+                    sorted.push(numbers[i]);
+                }
+            }
+            document.getElementById('result').innerHTML = `Sorted: ${sorted.join(', ')}`;
+        }
+    </script>
+</body>
+</html>
