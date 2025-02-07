@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Character and Word Counter</h1>
+
+<p>Enter text to count characters and words:</p>
+<textarea id="userInput" rows="6" cols="50" oninput="countCharactersAndWords()"></textarea>
+
+<h3>Character Count: <span id="charCount">0</span></h3>
+<h3>Word Count: <span id="wordCount">0</span></h3>
+
+<h3>Highlighted Repeated Words:</h3>
+<p id="highlightedWords"></p>
+
+<script>
+function countCharactersAndWords() {
+    const text = document.getElementById('userInput').value;
+
+    const charCount = text.length;
+
+    const words = text.trim().split(/\s+/);
+    const wordCount = words.filter(word => word.length > 0).length;
+
+    const wordFrequency = {};
+    words.forEach(word => {
+        const cleanedWord = word.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+        if (cleanedWord) {
+            wordFrequency[cleanedWord] = (wordFrequency[cleanedWord] || 0) + 1;
+        }
+    });
+
+    let highlightedText = text;
+    for (let word in wordFrequency) {
+        if (wordFrequency[word] > 1) {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            highlightedText = highlightedText.replace(regex, `<span class="highlight">${word}</span>`);
+        }
+    }
+
+    document.getElementById('charCount').textContent = charCount;
+    document.getElementById('wordCount').textContent = wordCount;
+
+    document.getElementById('highlightedWords').innerHTML = highlightedText;
+}
+</script>
+
+</body>
+</html>
